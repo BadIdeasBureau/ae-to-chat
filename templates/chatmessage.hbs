@@ -1,0 +1,28 @@
+<div class="ae-to-chat header">
+    <h3>
+        {{localize "AE_TO_CHAT.ChatCard.Title"}}
+    </h3>
+</div>
+<div class="ae-to-chat content" data-token-id="{{tokenId}}">
+    <ul class="chat-message effect-list">
+        {{#each effects as |effect key|}}
+        <li class="flexrow" id="effect-{{@index}}" data-effect-id="{{effect.id}}">
+            <div class="effect-icon">
+                <img src="{{effect.icon}}" class="effect-icon chat-message" title="{{effect.name}}">
+            </div>
+            <div class="effect-name" style="flex: 2; margin: 3px 0px 0px 0px" height="20px">
+                {{effect.name}}
+            </div>
+            <div class="disable-row">
+                <a name="disable-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.Disable"}}"><i class="fas fa-times"></i></a>
+            </div>
+            <div class="showinfo-row">
+                <a name="showinfo-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.ShowInfo"}}"><i class="fas fa-edit"></i></a>
+            </div>
+            <div class="remove-row">
+                <a name="remove-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.Remove"}}"><i class="fas fa-trash"></i></a>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</div>

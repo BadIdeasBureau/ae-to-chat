@@ -1,0 +1,9 @@
+{
+    "AE_TO_CHAT.ChatCard.Title": "Active Effects",
+    "AE_TO_CHAT.ChatCard.Buttons.Remove": "Delete",
+    "AE_TO_CHAT.ChatCard.Buttons.ShowInfo": "Show Info",
+    "AE_TO_CHAT.ChatCard.Buttons.Disable": "Disable",
+    "AE_TO_CHAT.ChatCard.NoEffect": "Effect Not Found: It may already have been deleted",
+    "AE_TO_CHAT.ChatCard.EffectDeleted": "Deleted Active Effect with ID:",
+    "AE_TO_CHAT.ChatCard.EffectDisabled": "Disabled Active Effect with ID:"
+}

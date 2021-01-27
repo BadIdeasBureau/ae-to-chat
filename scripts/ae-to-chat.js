@@ -27,6 +27,11 @@ async function printActive(effects, tokenData, scene) {
 	const templateData = {
 		tokenId: tokenData.id,
 		effects: effects,
+		settings: {
+			disable: game.settings.get("ae-to-chat","showDisable"),
+			showinfo: game.settings.get("ae-to-chat","showShowInfo"),
+			delete: game.settings.get("ae-to-chat","showDelete")
+		}
 	}
 	
 	//Use the handlebars template to construct the chat message, and define the other things we need here
@@ -55,20 +60,19 @@ async function _onRenderChatMessage(app, html, data) {
 
 	const scene = game.scenes.get(speaker.scene) ?? null;
 	const token = (canvas ? canvas?.tokens.get(speaker.token) : null) ?? (scene ? scene.data.tokens.find(t => t._id === speaker.token) : null);
-	const removeEffectAnchor = html.find("a[name='remove-row']");
+	const deleteEffectAnchor = html.find("a[name='delete-row']");
 	const disableEffectAnchor = html.find("a[name='disable-row']");
 	const showInfoEffectAnchor = html.find("a[name='showinfo-row']");
 
 	if (!token || (token && !game.user.isGM)) {
-		removeEffectAnchor.parent().hide();
-		disableEffectAnchor.parent().hide();
-		showInfoEffectAnchor.parent().hide();
+		deleteEffectAnchor?.parent().hide();
+		disableEffectAnchor?.parent().hide();
+		showInfoEffectAnchor?.parent().hide();
 	}
 
-
-	removeEffectAnchor.on("click", event => {
+//TODO later:  Refactor these anchors to deduplicate code further?  Could probably do a switch for the "do the thing and generate content" section
+	deleteEffectAnchor?.on("click", event => {
 		const anchorHandler = _anchorHandler(event);
-		console.log(anchorHandler);
 		if (!anchorHandler) return;
 		const tokenData = anchorHandler.tokenData;
 		const speaker = anchorHandler.speaker;
@@ -97,7 +101,7 @@ async function _onRenderChatMessage(app, html, data) {
 		});
 	});
 
-	disableEffectAnchor.on("click", event => {
+	disableEffectAnchor?.on("click", event => {
 		const anchorHandler = _anchorHandler(event);
 		if (!anchorHandler) return;
 		const tokenData = anchorHandler.tokenData;
@@ -127,7 +131,7 @@ async function _onRenderChatMessage(app, html, data) {
 		});
 	});
 	
-	showInfoEffectAnchor.on("click", event => {
+	showInfoEffectAnchor?.on("click", event => {
 		const anchorHandler = _anchorHandler(event);
 		if (!anchorHandler) return;
 		const tokenData = anchorHandler.tokenData;

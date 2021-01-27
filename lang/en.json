@@ -1,9 +1,23 @@
 {
     "AE_TO_CHAT.ChatCard.Title": "Active Effects",
-    "AE_TO_CHAT.ChatCard.Buttons.Remove": "Delete",
+    "AE_TO_CHAT.ChatCard.Buttons.Delete": "Delete",
     "AE_TO_CHAT.ChatCard.Buttons.ShowInfo": "Show Info",
     "AE_TO_CHAT.ChatCard.Buttons.Disable": "Disable",
     "AE_TO_CHAT.ChatCard.NoEffect": "Effect Not Found: It may already have been deleted",
     "AE_TO_CHAT.ChatCard.EffectDeleted": "Deleted Active Effect with ID:",
-    "AE_TO_CHAT.ChatCard.EffectDisabled": "Disabled Active Effect with ID:"
+    "AE_TO_CHAT.ChatCard.EffectDisabled": "Disabled Active Effect with ID:",
+
+    "AE_TO_CHAT.Settings.ShowDisable": "Show Disable Button",
+    "AE_TO_CHAT.Settings.Hints.ShowDisable": "Shows the 'Disable' button, allowing the active effect to be disabled (NB: not deleted)",
+    "AE_TO_CHAT.Settings.ShowShowInfo": "Show Show Info Button",
+    "AE_TO_CHAT.Settings.Hints.ShowShowInfo": "Shows a button allowing the sheet for the active effect to be opened.  May allow editing, depending on the effect source.",
+    "AE_TO_CHAT.Settings.ShowDelete": "Show Delete Button",
+    "AE_TO_CHAT.Settings.Hints.ShowDelete": "Shows a button allowing the effect to be permanently deleted.",
+    "AE_TO_CHAT.Settings.ConfirmationMode": "Confirmation Mode",
+    "AE_TO_CHAT.Settings.Hints.ConfirmationMode": "\"Whisper\" will whisper the confirmation to the user who pressed the button. \"Whisper+GM\" will whisper to the GMs, and to the user. \"Public\" will show the confirmation publicly. \"None\" will not provide a confirmation message",
+    "AE_TO_CHAT.Settings.ConfirmationMode.Whisper": "Whisper",
+    "AE_TO_CHAT.Settings.ConfirmationMode.GMWhisper": "Whisper + GM",
+    "AE_TO_CHAT.Settings.ConfirmationMode.Public": "Public",
+    "AE_TO_CHAT.Settings.ConfirmationMode.None": "None"
+
 }

@@ -1,13 +1,14 @@
 {
     "name": "ae-to-chat",
     "title": "Active Effects to Chat",
-    "description": "Outputs all temporary effects to chat at the start of a token's turn, and allows them to be deleted from the chat card.",
+    "description": "Outputs all temporary effects to chat at the start of a token's turn, and allows them to be disabled, examined, or deleted from the chat card.",
     "author": "BadIdeasBureau",
     "version": "0.1.0",
     "minimumCoreVersion": "0.7.5",
     "compatibleCoreVersion": "0.7.9",
     "esmodules":[
-        "./scripts/ae-to-chat.js"
+        "./scripts/ae-to-chat.js",
+        "./scripts/settings.js"
     ] ,
     "styles": [
         "./styles/ae-to-chat.css"

@@ -13,15 +13,21 @@
             <div class="effect-name" style="flex: 2; margin: 3px 0px 0px 0px" height="20px">
                 {{effect.name}}
             </div>
+            {{#if ../settings.disable}}
             <div class="disable-row">
-                <a name="disable-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.Disable"}}"><i class="fas fa-times"></i></a>
+                <a name="disable-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.Disable"}}"><i class="fas fa-user-slash"></i></a>
             </div>
+            {{/if}}
+            {{#if ../settings.showinfo}}
             <div class="showinfo-row">
                 <a name="showinfo-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.ShowInfo"}}"><i class="fas fa-edit"></i></a>
             </div>
-            <div class="remove-row">
-                <a name="remove-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.Remove"}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+            {{#if ../settings.delete}}
+            <div class="delete-row">
+                <a name="delete-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.Delete"}}"><i class="fas fa-trash"></i></a>
             </div>
+            {{/if}}
         </li>
         {{/each}}
     </ul>

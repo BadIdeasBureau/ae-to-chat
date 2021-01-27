@@ -3,7 +3,7 @@ ul.chat-message.effect-list {
     padding: 0;
 }
 
-.chat-message.effect-list .remove-row {
+.chat-message.effect-list .delete-row {
    flex: 0 0 20px;
 }
 

@@ -1,4 +1,4 @@
-Hooks.on("init", ()=>{
+Hooks.on("init", async ()=>{
     await game.settings.register('ae-to-chat', 'showDisable', {
         name: game.i18n.localize("AE_TO_CHAT.Settings.ShowDisable"),
         hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.ShowDisable"),

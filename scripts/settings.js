@@ -27,19 +27,33 @@ Hooks.on("init", async ()=>{
     });
     
     //not yet implemented - will be way easier to do after refactoring the handlers
-
+    
+    await game.settings.register('ae-to-chat', 'StartTurnMessageMode', {
+        name: game.i18n.localize("AE_TO_CHAT.Settings.startTurnMessageMode"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.MessageMode"),
+        scope: 'world',     // "world" = sync to db, "client" = local storage 
+        config: true,       // false if you dont want it to show in module config
+        type: String,       // Number, Boolean, String,  
+        default: "public",
+        choices: {
+            "whisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Whisper"), //whisper to user
+            "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.GMWhisper"), //whisper to GMs, and to the user if they are not a GM
+            "public": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Public") //send to chat
+        }
+    })
+    
     await game.settings.register('ae-to-chat', 'confirmationMode', {
         name: game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode"),
-        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.ConfirmationMode"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.messageMode"),
         scope: 'world',     // "world" = sync to db, "client" = local storage 
         config: true,       // false if you dont want it to show in module config
         type: String,       // Number, Boolean, String,  
         default: "whisper",
         choices: {
-            "whisper": game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode.Whisper"), //whisper to user
-            "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode.GMWhisper"), //whisper to GMs, and to the user if they are not a GM
-            "public": game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode.Public"), //send to chat
-            "none": game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode.None") //nothing
+            "whisper": game.i18n.localize("AE_TO_CHAT.Settings.messageMode.Whisper"), //whisper to user
+            "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.messageMode.GMWhisper"), //whisper to GMs, and to the user if they are not a GM
+            "public": game.i18n.localize("AE_TO_CHAT.Settings.messageMode.Public"), //send to chat
+            "none": game.i18n.localize("AE_TO_CHAT.Settings.messageMode.None") //nothing
         }
     })
 

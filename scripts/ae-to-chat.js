@@ -41,6 +41,22 @@ async function printActive(effects, tokenData, scene) {
 	const chatType = CONST.CHAT_MESSAGE_TYPES.OTHER;
 	
 	//make the chat message
+	const currentUser = game.userId;
+	const gmUsers = game.users.filter(user => user.isGM && user.active);
+	const whisperUsers = [];
+	
+	switch(game.settings.get("ae-to-chat","startTurnMessageMode")){
+		case "gmwhisper":
+			whisperUsers.push(gmUsers);
+			if (gmUsers.includes(currentUser)) break; //don't add the current user to the array if they're already a GM, otherwise go to next step to add them
+		case "whisper":
+			whisperUsers.push(currentUser);
+			break;
+		default: //if setting is the wrong value, fall back to whisper user only
+		case "public":
+			break; //leaving the array of whisper recipients blank keeps the message public
+	}
+
 	return await ChatMessage.create({
 		speaker,
 		content,

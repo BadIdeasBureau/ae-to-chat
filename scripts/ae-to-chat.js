@@ -23,6 +23,7 @@ Hooks.on("renderChatMessage",(app,html,data) => {
 	_onRenderChatMessage(app,html,data);
 });
 
+//experimental support for printing message when effect is applied goes here
 
 async function printActive(effects, tokenData, scene) {
 	//Assemble arguments in data for the template

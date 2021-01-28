@@ -64,9 +64,9 @@ Hooks.on("init", async ()=>{
         type: String,       // Number, Boolean, String,  
         default: "all",
         choices:{
-            "all": game.i18n.localize("AE_TO_CHAT.Settings.StartTurn.All"),
-            "linked": game.i18n.localize("AE_TO_CHAT.Settings.StartTurn.LinkedOnly"),
-            "player": game.i18n.localize("AE_TO_CHAT.Settings.StartTurn.PlayerOnly")
+            "all": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.AllTokens"),
+            "linked": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.LinkedOnly"),
+            "player": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.PlayerOnly")
         }
     });
 })

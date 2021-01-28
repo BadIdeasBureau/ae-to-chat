@@ -46,7 +46,7 @@ async function printActive(effects, tokenData, scene) {
 	//make the chat message
 	const currentUser = game.userId;
 	const gmUsers = game.users.filter(user => user.isGM && user.active);
-	const whisperUsers = [];
+	let whisperUsers = [];
 	
 	switch(game.settings.get("ae-to-chat","startTurnMessageMode")){
 		case "gmwhisper":
@@ -64,7 +64,8 @@ async function printActive(effects, tokenData, scene) {
 		speaker,
 		content,
 		type: chatType,
-		user: chatUser
+		user: chatUser,
+		whisper: whisperUsers
 	});
 }
 
@@ -158,7 +159,7 @@ async function _anchorHandler(event, anchorAction){
 
 	const currentUser = game.userId;
 	const gmUsers = game.users.filter(user => user.isGM && user.active);
-	const whisperUsers = [];
+	let whisperUsers = [];
 	
 	switch(game.settings.get("ae-to-chat","confirmationMode")){
 		case "gmwhisper":

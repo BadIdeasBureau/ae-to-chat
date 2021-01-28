@@ -27,8 +27,8 @@ Hooks.on("init", async ()=>{
     });
 
     
-    await game.settings.register('ae-to-chat', 'StartTurnMessageMode', {
-        name: game.i18n.localize("AE_TO_CHAT.Settings.startTurnMessageMode"),
+    await game.settings.register('ae-to-chat', 'startTurnMessageMode', {
+        name: game.i18n.localize("AE_TO_CHAT.Settings.StartTurnMessageMode"),
         hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.MessageMode"),
         scope: 'world',     // "world" = sync to db, "client" = local storage 
         config: true,       // false if you dont want it to show in module config

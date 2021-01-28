@@ -135,8 +135,24 @@ async function _anchorHandler(event, anchorAction){
 	let content = await anchorAction(token, effectId, effectName);
 	
 	//Confirm in chat
+	if (game.settings.get("ae-to-chat","confirmationMode") === "none") return; //no chat confirmation
+
+	const currentUser = game.userId;
+	const gmUsers = game.users.filter(user => user.isGM && user.active);
+	const whisperUsers = [];
 	
-	const chatUser = game.userId;
+	switch(game.settings.get("ae-to-chat","confirmationMode")){
+		case "gmwhisper":
+			whisperUsers.push(gmUsers);
+			if (gmUsers.includes(currentUser)) break; //don't add the current user to the array if they're already a GM, otherwise go to next step to add them
+		default: //if setting is the wrong value, fall back to whisper user only
+		case "whisper":
+			whisperUsers.push(currentUser);
+			break;
+		case "public":
+			break; //leaving the array of whisper recipients blank keeps the message public
+	}
+
 	const chatType = CONST.CHAT_MESSAGE_TYPES.WHISPER;
 			
 	//make the chat message, and whisper to the person that pressed the button.
@@ -144,8 +160,8 @@ async function _anchorHandler(event, anchorAction){
 		return ChatMessage.create({
 			content,
 			type: chatType,
-			user: chatUser,
-			whisper: [chatUser]
+			user: currentUser,
+			whisper: whisperUsers
 		});
 	}
 }

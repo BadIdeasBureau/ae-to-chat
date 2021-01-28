@@ -27,7 +27,7 @@ Hooks.on("init", async ()=>{
     });
     
     //not yet implemented - will be way easier to do after refactoring the handlers
-    /*
+
     await game.settings.register('ae-to-chat', 'confirmationMode', {
         name: game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode"),
         hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.ConfirmationMode"),
@@ -42,5 +42,5 @@ Hooks.on("init", async ()=>{
             "none": game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode.None") //nothing
         }
     })
-    */
+
 })

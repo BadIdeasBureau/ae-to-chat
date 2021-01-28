@@ -4,8 +4,10 @@ Hooks.on("updateCombat", (tracker) =>{
 		const combatant = tracker.combatant;
 		const tokenData = combatant.token;
 		const scene = tracker.scene;
-		if (!tokenData){
-			return;
+		if (!tokenData || //combatant isn't a token
+			(game.settings.get("ae-to-chat","startTurn")=== "linked" && !tokenData.actorLink) || //setting is set to linked only and actor is not linked
+			game.settings.get("ae-to-chat","startTurn")=== "player" && !(new Token(tokenData).actor.hasPlayerOwner)){ //setting is set to players only and actor is not owned by a player
+				return;
 		}
 		const tempEffects = combatant.actor.temporaryEffects; 
 		if (tempEffects.length === 0){

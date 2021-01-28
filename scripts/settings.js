@@ -25,8 +25,7 @@ Hooks.on("init", async ()=>{
         type: Boolean,       // Number, Boolean, String,  
         default: true
     });
-    
-    //not yet implemented - will be way easier to do after refactoring the handlers
+
     
     await game.settings.register('ae-to-chat', 'StartTurnMessageMode', {
         name: game.i18n.localize("AE_TO_CHAT.Settings.startTurnMessageMode"),
@@ -40,21 +39,34 @@ Hooks.on("init", async ()=>{
             "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.GMWhisper"), //whisper to GMs, and to the user if they are not a GM
             "public": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Public") //send to chat
         }
-    })
+    });
     
     await game.settings.register('ae-to-chat', 'confirmationMode', {
         name: game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode"),
-        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.messageMode"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.MessageMode"),
         scope: 'world',     // "world" = sync to db, "client" = local storage 
         config: true,       // false if you dont want it to show in module config
         type: String,       // Number, Boolean, String,  
         default: "whisper",
         choices: {
-            "whisper": game.i18n.localize("AE_TO_CHAT.Settings.messageMode.Whisper"), //whisper to user
-            "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.messageMode.GMWhisper"), //whisper to GMs, and to the user if they are not a GM
-            "public": game.i18n.localize("AE_TO_CHAT.Settings.messageMode.Public"), //send to chat
-            "none": game.i18n.localize("AE_TO_CHAT.Settings.messageMode.None") //nothing
+            "whisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Whisper"), //whisper to user
+            "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.GMWhisper"), //whisper to GMs, and to the user if they are not a GM
+            "public": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Public"), //send to chat
+            "none": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.None") //nothing
         }
-    })
-
+    });
+    
+    await game.settings.register('ae-to-chat', 'startTurn', {
+        name: game.i18n.localize("AE_TO_CHAT.Settings.StartTurn"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.StartTurn"),
+        scope: 'world',     // "world" = sync to db, "client" = local storage 
+        config: true,       // false if you dont want it to show in module config
+        type: String,       // Number, Boolean, String,  
+        default: "all",
+        choices:{
+            "all": game.i18n.localize("AE_TO_CHAT.Settings.StartTurn.All"),
+            "linked": game.i18n.localize("AE_TO_CHAT.Settings.StartTurn.LinkedOnly"),
+            "player": game.i18n.localize("AE_TO_CHAT.Settings.StartTurn.PlayerOnly")
+        }
+    });
 })

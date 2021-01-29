@@ -115,7 +115,7 @@ async function printActive(effects, tokenData, scene, hookType) {
 	const gmUsers = game.users.filter(user => user.isGM && user.active);
 	let whisperUsers = [];
 	
-	switch(game.settings.get("ae-to-chat","startTurnMessageMode")){
+	switch(game.settings.get("ae-to-chat","effectMessageMode")){
 		case "gmwhisper":
 			whisperUsers.push(gmUsers);
 			if (gmUsers.includes(currentUser)) break; //don't add the current user to the array if they're already a GM, otherwise go to next step to add them

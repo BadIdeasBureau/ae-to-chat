@@ -46,7 +46,7 @@ function processEffectArray(){
 	let newArray = Array.from(effectArray); //might be able to naively assign here, but probably worth making a new object explictly just to be sure.	
 	effectArray = []; //clear out the effectArray, so that it's available as soon as possible for 
 	setHookOnce();
-	console.log(newArray);
+	//console.log(newArray);
   
 	//change newArray from [{actor, effectData}] form to [{actor, [effectData..]}] form
 	newArray = newArray.reduce((accumilator, currentValue) => {
@@ -56,14 +56,14 @@ function processEffectArray(){
 		return accumilator;
 	}, []) //IMPORTANT: start with an empty array here
 
-	console.log(newArray);
-
+	//console.log(newArray);
+	if (game.settings.get("ae-to-chat", "onApply")==="player") newArray.filter(e=>e.actor.hasPlayerOwner); //filter to players only if that option is set
 	newArray.forEach(o => {
 		const tokenScene = getTokenDataSceneFromActor(o.actor);
 		if(!tokenScene) return;//do nothing if there is no linked token
 		const tokenData = tokenScene.tokenData;
 		const scene = tokenScene.scene;  
-		let effects = o.effects.filter(e => o.actor.temporaryEffects.find(t => t.id === e.id)); //filter the array down to only temporary effects, and covert to the appropriate format for printActive  
+		let effects = o.effects.filter(e => o.actor.temporaryEffects.find(t => t.id === e._id)); //filter the array down to only temporary effects, and covert to the appropriate format for printActive  
 		console.log(effects, tokenData, scene);
 		printActive(effects, tokenData, scene, hookType)
 	})

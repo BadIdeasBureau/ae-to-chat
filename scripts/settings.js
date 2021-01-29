@@ -64,7 +64,22 @@ Hooks.on("init", async ()=>{
         type: String,       // Number, Boolean, String,  
         default: "all",
         choices:{
+            "none": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.None"),
             "all": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.AllTokens"),
+            "linked": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.LinkedOnly"),
+            "player": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.PlayerOnly")
+        }
+    });
+
+    await game.settings.register('ae-to-chat', 'onApply', {
+        name: game.i18n.localize("AE_TO_CHAT.Settings.OnApply"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.OnApply"),
+        scope: 'world',     // "world" = sync to db, "client" = local storage 
+        config: true,       // false if you dont want it to show in module config
+        type: String,       // Number, Boolean, String,  
+        default: "none",
+        choices:{
+            "none": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.None"),
             "linked": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.LinkedOnly"),
             "player": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.PlayerOnly")
         }

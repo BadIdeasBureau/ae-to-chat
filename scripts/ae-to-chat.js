@@ -1,23 +1,22 @@
 //output effects to chat at the start of a token's turn
 Hooks.on("updateCombat", (tracker) =>{
-	if(game.settings.get("ae-to-chat", "startTurn") === "none") return;
-	if(game.user === game.users.find((u) => u.isGM && u.active)){
-		let hookType = "updateCombat"
-		const combatant = tracker.combatant;
-		const tokenData = combatant.token;
-		const scene = tracker.scene;
-		if (!tokenData || //combatant isn't a token
-			(game.settings.get("ae-to-chat","startTurn")=== "linked" && !tokenData.actorLink) || //setting is set to linked only and actor is not linked
-			game.settings.get("ae-to-chat","startTurn")=== "player" && !(new Token(tokenData).actor.hasPlayerOwner)){ //setting is set to players only and actor is not owned by a player
-				return;
-		}
-		const tempEffects = combatant.actor.temporaryEffects; 
-		if (tempEffects.length === 0){
-			return; //no chat message if no effects are present
-		}
-		const effects = tempEffects.map(e=>e.data);
-		printActive(effects, tokenData, scene, hookType)
+	if(game.settings.get("ae-to-chat", "startTurn") === "none" || !game.user === game.users.find((u) => u.isGM && u.active)) return;
+	let hookType = "updateCombat"
+	const combatant = tracker.combatant;
+	const tokenData = combatant.token;
+	const scene = tracker.scene;
+	if (!tokenData || //combatant isn't a token
+		(game.settings.get("ae-to-chat","startTurn")=== "linked" && !tokenData.actorLink) || //setting is set to linked only and actor is not linked
+		game.settings.get("ae-to-chat","startTurn")=== "player" && !(new Token(tokenData).actor.hasPlayerOwner)){ //setting is set to players only and actor is not owned by a player
+			return;
 	}
+	const tempEffects = combatant.actor.temporaryEffects; 
+	if (tempEffects.length === 0){
+		return; //no chat message if no effects are present
+	}
+	const effects = tempEffects.map(e=>e.data);
+	printActive(effects, tokenData, scene, hookType)
+	
 }
 );
 
@@ -29,14 +28,18 @@ setHookOnce();
 
 //set up a hook to add things t the array during the timer
 Hooks.on("createActiveEffect",(actor, effectData) =>{
-	if(game.settings.get("ae-to-chat", "onApply") === "none" || game.settings.get("ae-to-chat","startTurn")=== "player" && !actor.hasPlayerOwner) return;
+	if(game.settings.get("ae-to-chat", "onApply") === "none" ||
+	game.settings.get("ae-to-chat","startTurn")=== "player" && !actor.hasPlayerOwner || 
+	!game.user === game.users.find((u) => u.isGM && u.active)) return;
 	effectArray.push({actor:actor, effect:effectData}) 
 });
 
 //function to set up the timer hook.  TODO:  Make timeout configurable.
 function setHookOnce(){
 	Hooks.once("createActiveEffect",(actor) =>{
-		if(game.settings.get("ae-to-chat", "onApply") === "none" || game.settings.get("ae-to-chat","startTurn")=== "player" && !actor.hasPlayerOwner) return;
+		if(game.settings.get("ae-to-chat", "onApply") === "none" ||
+			game.settings.get("ae-to-chat","startTurn")=== "player" && !actor.hasPlayerOwner || 
+			!game.user === game.users.find((u) => u.isGM && u.active)) return;
     	setTimeout(processEffectArray, game.settings.get("ae-to-chat", "timeout"))
 	})
 };

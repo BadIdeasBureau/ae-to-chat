@@ -84,4 +84,18 @@ Hooks.on("init", async ()=>{
             "player": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.PlayerOnly")
         }
     });
+
+    await game.settings.register('ae-to-chat', 'timeout', {
+        name: game.i18n.localize("AE_TO_CHAT.Settings.Timeout"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.Timeout"),
+        scope: 'world',     // "world" = sync to db, "client" = local storage 
+        config: true,       // false if you dont want it to show in module config
+        type: Number,       // Number, Boolean, String,  
+        default: 300,
+        range:{
+            min: 0,
+            max: 1000,
+            step: 50
+        }
+    });
 })

@@ -37,7 +37,7 @@ Hooks.on("createActiveEffect",(actor, effectData) =>{
 function setHookOnce(){
 	Hooks.once("createActiveEffect",(actor) =>{
 		if(game.settings.get("ae-to-chat", "onApply") === "none" || game.settings.get("ae-to-chat","startTurn")=== "player" && !actor.hasPlayerOwner) return;
-    	setTimeout(processEffectArray, 300)
+    	setTimeout(processEffectArray, game.settings.get("ae-to-chat", "timeout"))
 	})
 };
 

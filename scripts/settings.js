@@ -29,14 +29,13 @@ Hooks.on("init", async ()=>{
     
     await game.settings.register('ae-to-chat', 'effectMessageMode', {
         name: game.i18n.localize("AE_TO_CHAT.Settings.EffectMessageMode"),
-        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.MessageMode"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.EffectMessageMode"),
         scope: 'world',     // "world" = sync to db, "client" = local storage 
         config: true,       // false if you dont want it to show in module config
         type: String,       // Number, Boolean, String,  
         default: "public",
         choices: {
-            "whisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Whisper"), //whisper to user
-            "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.GMWhisper"), //whisper to GMs, and to the user if they are not a GM
+            "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Whisper"), //whisper to GMs, and to the user if they are not a GM
             "public": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Public") //send to chat
         }
     });

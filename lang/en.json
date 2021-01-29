@@ -17,6 +17,7 @@
 
     "AE_TO_CHAT.Settings.ConfirmationMode": "Confirmation Mode",
     "AE_TO_CHAT.Settings.StartTurnMessageMode": "Effect Message Mode",
+    "AE_TO_CHAT.Settings.Hints.EffectMessageMode": "\"Whisper\" will whisper the effect messages to the GM. \"Public\" will show the effect message publicly.",
     "AE_TO_CHAT.Settings.Hints.MessageMode": "\"Whisper\" will whisper the confirmation to the user who pressed the button. \"Whisper + GM\" will whisper to the GMs, and to the user. \"Public\" will show the confirmation publicly. \"None\" will not provide a confirmation message",
     "AE_TO_CHAT.Settings.MessageMode.Whisper": "Whisper",
     "AE_TO_CHAT.Settings.MessageMode.GMWhisper": "Whisper + GM",

@@ -158,7 +158,7 @@ async function _onRenderChatMessage(app, html, data) {
 	const disableEffectAnchor = html.find("a[name='disable-row']");
 	const showInfoEffectAnchor = html.find("a[name='showinfo-row']");
 
-	if (!token || (token && !game.user.isGM)) {
+	if (!token || (token && !game.user.isGM && !token.actor.owner)) {
 		deleteEffectAnchor?.parent().hide();
 		disableEffectAnchor?.parent().hide();
 		showInfoEffectAnchor?.parent().hide();

@@ -110,7 +110,8 @@ async function printActive(effects, tokenData, scene, hookType) {
 			showinfo: game.settings.get("ae-to-chat","showShowInfo"),
 			delete: game.settings.get("ae-to-chat","showDelete")
 		},
-		subtitle: subtitle
+		subtitle: subtitle,
+		scene: scene
 	}
 	
 	//Use the handlebars template to construct the chat message, and define the other things we need here
@@ -149,9 +150,10 @@ async function _onRenderChatMessage(app, html, data) {
 	const speaker = data.message.speaker;
 
 	if (!speaker) return;
-
-	const scene = game.scenes.get(speaker.scene) ?? null;
-	const token = (canvas ? canvas?.tokens.get(speaker.token) : null) ?? (scene ? scene.data.tokens.find(t => t._id === speaker.token) : null);
+	const sceneId = /*speaker.scene ??*/ html.find("div[class='ae-to-chat header']")[0]?.dataset?.sceneId; //commented out section is old behaviour using speaker to pass data.  Was incompatible with 
+	const tokenId = /*speaker.token ??*/ html.find("div[class='ae-to-chat header']")[0]?.dataset?.tokenId;
+	const scene = game.scenes.get(sceneId) ?? null;
+	const token = (canvas ? canvas?.tokens.get(sceneId) : null) ?? (scene ? scene.data.tokens.find(t => t._id === tokenId) : null);
 	const deleteEffectAnchor = html.find("a[name='delete-row']");
 	const disableEffectAnchor = html.find("a[name='disable-row']");
 	const showInfoEffectAnchor = html.find("a[name='showinfo-row']");

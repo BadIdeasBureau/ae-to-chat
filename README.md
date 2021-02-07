@@ -10,7 +10,6 @@ Only enabled temporary effects (i.e. those with a duration, or with the "tempora
 
 ## Forthcoming Features
 
-  * Configurable confirmation message - either put it in the public chatlog,  whisper to all GMs and the user that clicked it, or just don't show anything.
   * Handling of disabled temporary effects, allowing them to be reenabled.
   * If there is interest, handling of non-temporary active effects (currently not included to keep the size of the chat message manageable).
   * Feel free to request others by posting a new issue

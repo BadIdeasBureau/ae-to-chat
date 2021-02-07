@@ -39,6 +39,20 @@ Hooks.on("init", async ()=>{
             "public": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Public") //send to chat
         }
     });
+
+    await game.settings.register('ae-to-chat', 'hiddenTokenOverride', {
+        name: game.i18n.localize("AE_TO_CHAT.Settings.hiddenTokenOverride"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.hiddenTokenOverride"),
+        scope: 'world',     // "world" = sync to db, "client" = local storage 
+        config: true,       // false if you dont want it to show in module config
+        type: String,       // Number, Boolean, String,  
+        default: "public",
+        choices: {
+            "none": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.None"),
+            "gmwhisper": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Whisper"), //whisper to GMs, and to the user if they are not a GM
+            "default": game.i18n.localize("AE_TO_CHAT.Settings.MessageMode.Default") //send to chat
+        }
+    });
     
     await game.settings.register('ae-to-chat', 'confirmationMode', {
         name: game.i18n.localize("AE_TO_CHAT.Settings.ConfirmationMode"),

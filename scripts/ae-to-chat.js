@@ -1,7 +1,8 @@
-//output effects to chat at the start of a token's turn
+//output effects to chat at the start of a token's turn (with timeout to guard against hilarity when deleting a token)
+
 Hooks.on("updateCombat", (tracker) =>{
 	if((game.settings.get("ae-to-chat", "startTurn") === "none") || !(game.user === game.users.find((u) => u.isGM && u.active))) return;
-	let hookType = "updateCombat"
+	const hookType = "updateCombat"
 	const combatant = tracker.combatant;
 	const tokenData = combatant.token;
 	const scene = tracker.scene;
@@ -17,10 +18,11 @@ Hooks.on("updateCombat", (tracker) =>{
 		return; //no chat message if no effects are present
 	}
 	const effects = tempEffects.map(e=>e.data);
-	printActive(effects, tokenData, scene, hookType)
+	printActive(effects, tokenData, scene, hookType);
 	
 }
 );
+
 
 //output new effects to chat.
 //define an empty array on startup
@@ -133,6 +135,19 @@ async function printActive(effects, tokenData, scene, hookType) {
 			break; //leaving the array of whisper recipients blank keeps the message public
 	}
 
+	if (tokenData.hidden){
+		switch(game.settings.get("ae-to-chat","hiddenTokenOverride")){
+			case "gmwhisper":
+				whisperUsers = gmUsers; //set the array to only GM users
+				break;
+			case "none":
+				return;
+			default: //if setting is the wrong value, fall back to default
+			case "default":
+				break; //leave the array as was previously generated
+		}
+	}
+
 	return await ChatMessage.create({
 		speaker,
 		content,
@@ -170,7 +185,7 @@ async function _onRenderChatMessage(app, html, data) {
 			let content = ""                                    
 			if(! await token.actor.effects.get(effectId)?.delete()){
 				content = game.i18n.localize("AE_TO_CHAT.ChatCard.NoEffect")
-			} else {content = `${game.i18n.localize("AE_TO_CHAT.ChatCard.EffectDeleted")} ${effectName}`};
+			} else {content = game.i18n.format("AE_TO_CHAT.ChatCard.EffectDeleted", {name: effectName})};
 			return content
 		}
 
@@ -182,7 +197,7 @@ async function _onRenderChatMessage(app, html, data) {
 			let content;                                    
 			if(! await token.actor.effects.get(effectId)?.update({disabled: true})){
 				content = game.i18n.localize("AE_TO_CHAT.ChatCard.NoEffect")
-			} else {content = `${game.i18n.localize("AE_TO_CHAT.ChatCard.EffectDisabled")} ${effectName}`};
+			} else {content = game.i18n.format("AE_TO_CHAT.ChatCard.EffectDisabled", {name: effectName})};
 			return content;
 		}
 		

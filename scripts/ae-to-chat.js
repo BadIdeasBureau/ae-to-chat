@@ -75,7 +75,7 @@ function processEffectArray(){
 		const tokenData = tokenScene.tokenData;
 		const scene = tokenScene.scene;  
 		let effects = o.effects.filter(e => o.actor.temporaryEffects.find(t => t.id === e._id)); //filter the array down to only temporary effects, and covert to the appropriate format for printActive  
-		console.log(effects, tokenData, scene);
+		if (effects === []) return; //if there are no effects to print, don't print them
 		printActive(effects, tokenData, scene, hookType)
 	})
 };

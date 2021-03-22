@@ -63,7 +63,7 @@ function processEffectArray(){
 	newArray = newArray.reduce((accumilator, currentValue) => {
 		if (!accumilator.find(e=> e?.actor === currentValue.actor)?.effects.push(currentValue.effect)){ //add the effect to the effects array of that actor (if it exists)
 		accumilator.push({actor: currentValue.actor, effects: [currentValue.effect]})}; //if the actor isn't in the accumilator, add a new object for that actor to the array
-		console.log(accumilator);
+		//console.log(accumilator);
 		return accumilator;
 	}, []) //IMPORTANT: start with an empty array here
 

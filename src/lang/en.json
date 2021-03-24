@@ -1,0 +1,42 @@
+{
+    "ae-to-chat.ChatCard.Title": "Active Effects",
+    "ae-to-chat.ChatCard.Buttons.Delete": "Delete",
+    "ae-to-chat.ChatCard.Buttons.ShowInfo": "Show Info",
+    "ae-to-chat.ChatCard.Buttons.Disable": "Disable",
+    "ae-to-chat.ChatCard.NoEffect": "Effect Not Found: It may already have been deleted",
+    "ae-to-chat.ChatCard.EffectDeleted": "Deleted Active Effect: {name}",
+    "ae-to-chat.ChatCard.EffectDisabled": "Disabled Active Effect: {name}",
+    "ae-to-chat.ChatCard.AddEffect": "Effects created on ",
+
+    "ae-to-chat.Settings.ShowDisable": "Show Disable Button",
+    "ae-to-chat.Settings.Hints.ShowDisable": "Shows the 'Disable' button, allowing the active effect to be disabled (NB: not deleted)",
+    "ae-to-chat.Settings.ShowShowInfo": "Show Show Info Button",
+    "ae-to-chat.Settings.Hints.ShowShowInfo": "Shows a button allowing the sheet for the active effect to be opened.  May allow editing, depending on the effect source.",
+    "ae-to-chat.Settings.ShowDelete": "Show Delete Button",
+    "ae-to-chat.Settings.Hints.ShowDelete": "Shows a button allowing the effect to be permanently deleted.",
+
+    "ae-to-chat.Settings.ConfirmationMode": "Confirmation Mode",
+    "ae-to-chat.Settings.EffectMessageMode": "Effect Message Mode",
+    "ae-to-chat.Settings.Hints.EffectMessageMode": "\"Whisper\" will whisper the effect messages to the GM. \"Public\" will show the effect message publicly.",
+    "ae-to-chat.Settings.Hints.MessageMode": "\"Whisper\" will whisper the confirmation to the user who pressed the button. \"Whisper + GM\" will whisper to the GMs, and to the user. \"Public\" will show the confirmation publicly. \"None\" will not provide a confirmation message",
+    "ae-to-chat.Settings.MessageMode.Whisper": "Whisper",
+    "ae-to-chat.Settings.MessageMode.GMWhisper": "Whisper + GM",
+    "ae-to-chat.Settings.MessageMode.Public": "Public",
+    "ae-to-chat.Settings.MessageMode.None": "None",
+    "ae-to-chat.Settings.MessageMode.Default": "Default",
+
+    "ae-to-chat.Settings.hiddenTokenOverride": "Message Mode for Hidden Tokens",
+    "ae-to-chat.Settings.Hints.hiddenTokenOverride": "Override message mode whisper setting for hidden tokens.'Default' uses the same setting as for normal messages",
+
+    "ae-to-chat.Settings.StartTurn": "Start of Turn Messages",
+    "ae-to-chat.Settings.Hints.StartTurn": "Controls which tokens start of turn messages are shown for",
+    "ae-to-chat.Settings.OnApply": "Messages On Effect Creation [LINKED ONLY]",
+    "ae-to-chat.Settings.Hints.OnApply": "Shows a message when a temporary effect is created on a token (FOR LINKED TOKENS ONLY)", 
+    "ae-to-chat.Settings.TokenSet.AllTokens":"All Tokens",
+    "ae-to-chat.Settings.TokenSet.LinkedOnly":"Linked Tokens Only",
+    "ae-to-chat.Settings.TokenSet.PlayerOnly":"Player Tokens Only",
+    "ae-to-chat.Settings.TokenSet.None":"None",
+
+    "ae-to-chat.Settings.Timeout": "Timeout for Simultaneous Effects",
+    "ae-to-chat.Settings.Hints.Timeout": "Effects for the same actor will be shown on the same chat card if they are created within this timeout (from the first one created in a set).  If you're finding that applying multiple effects to an actor (e.g. with DAE) creates multiple cards, then increase this"
+}

@@ -1,0 +1,59 @@
+
+{
+    "name": "ae-to-chat",
+    "title": "Active Effects to Chat",
+    "description": "Outputs all temporary effects to chat at the start of a token's turn, and allows them to be disabled, examined, or deleted from the chat card.",
+    "author": "BadIdeasBureau",
+    "version": "0.2.12",
+    "type": "module",
+    "socket": true,
+    "includes": [
+        "./assets/**",
+        "./lang/**",
+        "./scripts/**",
+        "./styles/**",
+        "./templates/**",
+        "./module.json",
+        "./README.md",
+        "./icons/**",
+        "./packs/**"
+    ],
+    "media": [
+        {
+        "type": "icon",
+        "location": ""
+        },
+        {
+        "type": "cover",
+        "location": ""
+        },
+        {
+        "type": "screenshot",
+        "location": ""
+        }
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "scripts": [
+    ],
+    "esmodules": [
+        "ae-to-chat.js"
+    ],
+    "styles": [
+        "./styles/ae-to-chat.css"
+    ],
+    "url": "https://github.com/BadIdeasBureau/ae-to-chat/tree/master",
+    "manifest": "https://raw.githubusercontent.com/BadIdeasBureau/ae-to-chat/master/src/module.json",
+    "download": "https://raw.githubusercontent.com/BadIdeasBureau/ae-to-chat/master/package/ae-to-chat-v0.2.12.zip",
+    "minimumCoreVersion": "0.7.6",
+    "compatibleCoreVersion": "0.7.9",
+    "changelog": "https://raw.githubusercontent.com/BadIdeasBureau/ae-to-chat/master/changelog.md",
+    "dependencies": [
+    ]
+}
+  

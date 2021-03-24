@@ -1,6 +1,6 @@
 <div class="ae-to-chat header" data-token-id="{{tokenData._id}}" data-scene-id="{{scene.id}}">
     <h3>
-        {{localize "AE_TO_CHAT.ChatCard.Title"}}
+        {{localize "ae-to-chat.ChatCard.Title"}}
     </h3>
     {{#if subtitle}}
     <h4>
@@ -20,17 +20,17 @@
             </div>
             {{#if ../settings.disable}}
             <div class="disable-row">
-                <a name="disable-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.Disable"}}"><i class="fas fa-user-slash"></i></a>
+                <a name="disable-row" title="{{localize "ae-to-chat.ChatCard.Buttons.Disable"}}"><i class="fas fa-user-slash"></i></a>
             </div>
             {{/if}}
             {{#if ../settings.showinfo}}
             <div class="showinfo-row">
-                <a name="showinfo-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.ShowInfo"}}"><i class="fas fa-edit"></i></a>
+                <a name="showinfo-row" title="{{localize "ae-to-chat.ChatCard.Buttons.ShowInfo"}}"><i class="fas fa-edit"></i></a>
             </div>
             {{/if}}
             {{#if ../settings.delete}}
             <div class="delete-row">
-                <a name="delete-row" title="{{localize "AE_TO_CHAT.ChatCard.Buttons.Delete"}}"><i class="fas fa-trash"></i></a>
+                <a name="delete-row" title="{{localize "ae-to-chat.ChatCard.Buttons.Delete"}}"><i class="fas fa-trash"></i></a>
             </div>
             {{/if}}
         </li>

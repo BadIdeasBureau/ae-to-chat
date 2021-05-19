@@ -1,4 +1,4 @@
-<div class="ae-to-chat header" data-token-id="{{tokenData._id}}" data-scene-id="{{scene.id}}">
+<div class="ae-to-chat header" data-token-id="{{speaker.token}}" data-scene-id="{{speaker.scene}}">
     <h3>
         {{localize "AE_TO_CHAT.ChatCard.Title"}}
     </h3>
@@ -8,12 +8,12 @@
     </h4>
     {{/if}}
 </div>
-<div class="ae-to-chat content" data-token-id="{{tokenData._id}}">
+<div class="ae-to-chat content" data-token-id="{{speaker.token}}">
     <ul class="chat-message effect-list">
         {{#each effects as |effect key|}}
-        <li class="flexrow" id="effect-{{@index}}" data-effect-id="{{effect._id}}">
+        <li class="flexrow" id="effect-{{@index}}" data-effect-uuid="{{effect.uuid}}">
             <div class="effect-icon">
-                <img src="{{effect.icon}}" class="effect-icon chat-message" title="{{effect.name}}">
+                <img src="{{effect.icon}}" class="effect-icon chat-message" title="{{effect.label}}" alt="{{effect.label}}">
             </div>
             <div class="effect-name" style="flex: 2; margin: 3px 0px 0px 0px" height="20px">
                 {{effect.label}}

@@ -4,8 +4,8 @@
     "description": "Outputs all temporary effects to chat at the start of a token's turn, and allows them to be disabled, examined, or deleted from the chat card.",
     "author": "BadIdeasBureau",
     "version": "0.1.0",
-    "minimumCoreVersion": "0.7.5",
-    "compatibleCoreVersion": "0.7.9",
+    "minimumCoreVersion": "0.8.4",
+    "compatibleCoreVersion": "0.8.4",
     "esmodules":[
         "./scripts/ae-to-chat.js",
         "./scripts/settings.js"

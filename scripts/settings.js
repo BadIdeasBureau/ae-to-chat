@@ -93,6 +93,7 @@ Hooks.on("init", async ()=>{
         default: "none",
         choices:{
             "none": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.None"),
+            "all": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.AllTokens"),
             "linked": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.LinkedOnly"),
             "player": game.i18n.localize("AE_TO_CHAT.Settings.TokenSet.PlayerOnly")
         }

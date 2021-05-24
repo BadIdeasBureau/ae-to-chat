@@ -11,7 +11,7 @@
 <div class="ae-to-chat content" data-token-id="{{speaker.token}}">
     <ul class="chat-message effect-list">
         {{#each effects as |effect key|}}
-        <li class="flexrow" id="effect-{{@index}}" data-effect-uuid="{{effect.uuid}}">
+        <li class="flexrow" id="effect-{{@index}}" data-effect-uuid="{{effect.document.uuid}}">
             <div class="effect-icon">
                 <img src="{{effect.icon}}" class="effect-icon chat-message" title="{{effect.label}}" alt="{{effect.label}}">
             </div>

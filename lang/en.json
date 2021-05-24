@@ -9,7 +9,7 @@
     "AE_TO_CHAT.ChatCard.AddEffect": "Effects created on {tokenName}",
 
     "AE_TO_CHAT.Settings.ShowDisable": "Show Disable Button",
-    "AE_TO_CHAT.Settings.Hints.ShowDisable": "Shows the 'Disable' button, allowing the active effect to be disabled (NB: not deleted)",
+    "AE_TO_CHAT.Settings.Hints.ShowDisable": "Shows the 'Disable' button, allowing the active effect to be disabled (NB: not deleted).",
     "AE_TO_CHAT.Settings.ShowShowInfo": "Show Show Info Button",
     "AE_TO_CHAT.Settings.Hints.ShowShowInfo": "Shows a button allowing the sheet for the active effect to be opened.  May allow editing, depending on the effect source.",
     "AE_TO_CHAT.Settings.ShowDelete": "Show Delete Button",
@@ -19,6 +19,7 @@
     "AE_TO_CHAT.Settings.EffectMessageMode": "Effect Message Mode",
     "AE_TO_CHAT.Settings.Hints.EffectMessageMode": "\"Whisper\" will whisper the effect messages to the GM. \"Public\" will show the effect message publicly.",
     "AE_TO_CHAT.Settings.Hints.MessageMode": "\"Whisper\" will whisper the confirmation to the user who pressed the button. \"Whisper + GM\" will whisper to the GMs, and to the user. \"Public\" will show the confirmation publicly. \"None\" will not provide a confirmation message",
+
     "AE_TO_CHAT.Settings.MessageMode.Whisper": "Whisper",
     "AE_TO_CHAT.Settings.MessageMode.GMWhisper": "Whisper + GM",
     "AE_TO_CHAT.Settings.MessageMode.Public": "Public",
@@ -29,14 +30,15 @@
     "AE_TO_CHAT.Settings.Hints.hiddenTokenOverride": "Override message mode whisper setting for hidden tokens.'Default' uses the same setting as for normal messages",
 
     "AE_TO_CHAT.Settings.StartTurn": "Start of Turn Messages",
-    "AE_TO_CHAT.Settings.Hints.StartTurn": "Controls which tokens start of turn messages are shown for",
-    "AE_TO_CHAT.Settings.OnApply": "Messages On Effect Creation [LINKED ONLY]",
-    "AE_TO_CHAT.Settings.Hints.OnApply": "Shows a message when a temporary effect is created on a token (FOR LINKED TOKENS ONLY)", 
+    "AE_TO_CHAT.Settings.Hints.StartTurn": "Controls which tokens start of turn messages are shown for.",
+    "AE_TO_CHAT.Settings.OnApply": "Messages On Effect Creation",
+    "AE_TO_CHAT.Settings.Hints.OnApply": "Shows a message when a temporary effect is created on a token.",
+
     "AE_TO_CHAT.Settings.TokenSet.AllTokens":"All Tokens",
     "AE_TO_CHAT.Settings.TokenSet.LinkedOnly":"Linked Tokens Only",
     "AE_TO_CHAT.Settings.TokenSet.PlayerOnly":"Player Tokens Only",
     "AE_TO_CHAT.Settings.TokenSet.None":"None",
 
     "AE_TO_CHAT.Settings.Timeout": "Timeout for Simultaneous Effects",
-    "AE_TO_CHAT.Settings.Hints.Timeout": "Effects for the same actor will be shown on the same chat card if they are created within this timeout (from the first one created in a set).  If you're finding that applying multiple effects to an actor (e.g. with DAE) creates multiple cards, then increase this"
+    "AE_TO_CHAT.Settings.Hints.Timeout": "Effects for the same actor will be shown on the same chat card if they are created within this timeout (from the first one created in a set).  If you're finding that applying multiple effects to an actor (e.g. with DAE) creates multiple cards, then increase this."
 }

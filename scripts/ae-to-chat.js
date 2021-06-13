@@ -31,7 +31,7 @@ Hooks.on("ready", ()=> {
                     log("updateCombat Hook fired and initial gates passed")
                     const hookType = "updateCombat"
                     const combatant = combat.combatant;
-                    const tokenDocument = combatant.token;
+                    const tokenDocument = combatant?.token;
                     if (
                         !tokenDocument || //combatant isn't a token
                         (game.settings.get(MODULE_ID, "startTurn") === "linked" && !tokenDocument.isLinked) || //setting is set to linked only and actor is not linked
@@ -105,7 +105,8 @@ function processEffectArray(){
         if (game.settings.get(MODULE_ID, "onApply")==="player" && actor.hasPlayerOwner) return accumilator; //ignore non-PC actors if that setting is set
 	    let token = actor.parent; //only exists for an unlinked token
 
-	    if(token  && !(game.settings.get(MODULE_ID, "onApply")==="linked") ){ //unlinked actors get stored as tokens, ignore if setting is set like that
+	    if(token){ //unlinked actors get stored as tokens
+	        if(game.settings.get(MODULE_ID, "onApply")==="linked") return accumilator //ignore if setting is set to only linked tokens
 	        let tokenObject = accumilator.find(o => o.token?.id === token.id)
             if (tokenObject) {
                 tokenObject.effects.push(effect)

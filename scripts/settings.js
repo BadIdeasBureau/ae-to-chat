@@ -84,9 +84,9 @@ Hooks.on("init", async ()=>{
         }
     });
 
-    await game.settings.register('ae-to-chat', 'onApply', {
-        name: game.i18n.localize("AE_TO_CHAT.Settings.OnApply"),
-        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.OnApply"),
+    await game.settings.register('ae-to-chat', 'endTurn', {
+        name: game.i18n.localize("AE_TO_CHAT.Settings.EndTurn"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.EndTurn"),
         scope: 'world',     // "world" = sync to db, "client" = local storage 
         config: true,       // false if you dont want it to show in module config
         type: String,       // Number, Boolean, String,  
@@ -99,17 +99,12 @@ Hooks.on("init", async ()=>{
         }
     });
 
-    await game.settings.register('ae-to-chat', 'timeout', {
-        name: game.i18n.localize("AE_TO_CHAT.Settings.Timeout"),
-        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.Timeout"),
+    await game.settings.register('ae-to-chat', 'debug', {
+        name: game.i18n.localize("AE_TO_CHAT.Settings.debug"),
+        hint: game.i18n.localize("AE_TO_CHAT.Settings.Hints.debug"),
         scope: 'world',     // "world" = sync to db, "client" = local storage 
-        config: true,       // false if you dont want it to show in module config
-        type: Number,       // Number, Boolean, String,  
-        default: 300,
-        range:{
-            min: 0,
-            max: 1000,
-            step: 50
-        }
+        config: false,       // false if you dont want it to show in module config
+        type: Boolean,       // Number, Boolean, String,  
+        default: false
     });
 })

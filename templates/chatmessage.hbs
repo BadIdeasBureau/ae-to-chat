@@ -11,12 +11,12 @@
 <div class="ae-to-chat content" data-token-id="{{speaker.token}}">
     <ul class="chat-message effect-list">
         {{#each effects as |effect key|}}
-        <li class="flexrow" id="effect-{{@index}}" data-effect-uuid="{{effect.document.uuid}}">
+        <li class="flexrow" id="effect-{{@index}}" data-effect-uuid="{{effect.uuid}}">
             <div class="effect-icon">
-                <img src="{{effect.icon}}" class="effect-icon chat-message" title="{{effect.label}}" alt="{{effect.label}}">
+                <img src="{{effect.icon}}" class="effect-icon chat-message" title="{{effect.name}}" alt="{{effect.name}}">
             </div>
             <div class="effect-name" style="flex: 2; margin: 3px 0px 0px 0px" height="20px">
-                {{effect.label}}
+                {{effect.name}}
             </div>
             {{#if ../settings.disable}}
             <div class="disable-row">

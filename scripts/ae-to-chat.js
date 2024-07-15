@@ -4,15 +4,12 @@
 //Dev mode integration
 const MODULE_ID = "ae-to-chat";
 
-Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {
-    registerPackageDebugFlag(MODULE_ID);
-});
 
 
 
 function log(...args) {
     try {
-        const isDebugging = window.DEV?.getPackageDebugValue(MODULE_ID);
+        const isDebugging = game.settings.get(MODULE_ID, "debug");
 
         if (isDebugging) {
             console.log(MODULE_ID, '|', ...args);
@@ -25,113 +22,42 @@ function log(...args) {
 
 Hooks.on("ready", ()=> {
         if (game.user.isGM) {
-            Hooks.on("updateCombat", (combat, changes, options) => {
-                    if (!options.diff) return; //options.diff is true for all the situations we care about.
-                    if ((game.settings.get(MODULE_ID, "startTurn") === "none") || !(game.user === game.users.find((u) => u.isGM && u.active))) return;
-                    log("updateCombat Hook fired and initial gates passed")
-                    const hookType = "updateCombat"
-                    const combatant = combat.combatant;
-                    const tokenDocument = combatant?.token;
-                    if (
-                        !tokenDocument || //combatant isn't a token
-                        (game.settings.get(MODULE_ID, "startTurn") === "linked" && !tokenDocument.isLinked) || //setting is set to linked only and actor is not linked
-                        (game.settings.get(MODULE_ID, "startTurn") === "player" && !tokenDocument.actor.hasPlayerOwner) //setting is set to players only and actor is not owned by a player
-                    ) {
-                        return;
-                    }
-                    const effects = combatant.actor.temporaryEffects;
-                    if (effects.length === 0) {
-                        return; //no chat message if no effects are present
-                    }
-                    printActive({
-                        effects,
-                        token: tokenDocument,
-                        hookType
-                    });
-                }
-            );
+			Hooks.on("combatTurnChange", (combat, prior, current) => {
+				if(!(game.users.activeGM.isSelf)) return //only run for first active GM
 
+				//start of turn messages
+				const tokenStartingTurn = combat.combatants.get(current.combatantId).token
+				if(
+					(game.settings.get(MODULE_ID, "startTurn") === "linked" && tokenStartingTurn.isLinked) || //setting is set to linked only and actor linked
+                    (game.settings.get(MODULE_ID, "startTurn") === "player" && tokenStartingTurn.actor.hasPlayerOwner) || //setting is set to players only and actor is owned by a player
+					(game.settings.get(MODULE_ID, "startTurn") === "all") //setting is set to all tokens
+				) {
+					printActive({
+						effects: tokenStartingTurn.actor.temporaryEffects,
+						token: tokenStartingTurn,
+						hookType: "startTurn"
+					})
+				}
 
-//output new effects to chat.
-// the timer nonsense here is because e.g. for an AoE using Midi and DAE, we could have any number of different effects applying at once to any number of tokens - so we consolidate them into an array, and then process that to generate only one message per target
+				//end of turn messages
+				const tokenEndingTurn = combat.combatants.get(current.combatantId).token
+				if(
+					(game.settings.get(MODULE_ID, "endTurn") === "linked" && tokenEndingTurn.isLinked) || //setting is set to linked only and actor linked
+                    (game.settings.get(MODULE_ID, "endTurn") === "player" && tokenEndingTurn.actor.hasPlayerOwner) || //setting is set to players only and actor is owned by a player
+					(game.settings.get(MODULE_ID, "endTurn") === "all") //setting is set to all tokens
+				) {
+					printActive({
+						effects: tokenEnbingTurn.actor.temporaryEffects,
+						token: tokenEndingTurn,
+						hookType: "endTurn"
+					})
+				}
 
-//set up a hook to start a timer when an effect is added
-            setHookOnce();
-
-//set up a hook to add things to the array during the timer
-            Hooks.on("createActiveEffect", (effectDocument) => {
-                log("effect creation detected with document", effectDocument)
-                if (
-                    (game.settings.get(MODULE_ID, "onApply") === "none") ||
-                    (game.settings.get(MODULE_ID, "onApply") === "player" && !actor.hasPlayerOwner) ||
-                    !(game.user === game.users.find((u) => u.isGM && u.active))
-                ) return;
-                if (effectDocument.isTemporary) { //temporary effects only.  TODO add support for other effects.
-                    effectArray.push(effectDocument)
-                }
-            });
-        }
-    }
-)
-
-//define an empty array on startup
-var effectArray = [];  // Expected array structure: [{actor, token, effect: effectData}], with EITHER actor OR token, which will be reduced later
-
-//function to set up the timer hook.
-function setHookOnce() {
-    log("HookOnce set")
-    Hooks.once("createActiveEffect", (effect) => {
-        let actor = effect.parent;
-        if (
-            (game.settings.get(MODULE_ID, "onApply") === "none") ||
-            (game.settings.get(MODULE_ID, "onApply") === "player" && !actor.hasPlayerOwner) ||
-            !(game.user === game.users.find((u) => u.isGM && u.active))
-        ) return;
-        setTimeout(processEffectArray, game.settings.get(MODULE_ID, "timeout"))
-    })
-}
-
-//take the resulting array and render the chat messages
-function processEffectArray(){
-	let hookType="createActiveEffect";
-	let effectArrayCopy = Array.from(effectArray); //might be able to naively assign here, but probably worth making a new object explicitly just to be sure.
-	effectArray = []; //clear out the effectArray, so that it's available as soon as possible for
-	setHookOnce();
-
-	let reducedEffectArray = effectArrayCopy.reduce(reducer, []) //take the array of effects and reduce it to an array of {actor or token, [effects]}, with one object for each linked actor and each unlinked token
-
-    function reducer(accumilator, effect){
-        let actor = effect.parent;
-        if (game.settings.get(MODULE_ID, "onApply")==="player" && actor.hasPlayerOwner) return accumilator; //ignore non-PC actors if that setting is set
-	    let token = actor.parent; //only exists for an unlinked token
-
-	    if(token){ //unlinked actors get stored as tokens
-	        if(game.settings.get(MODULE_ID, "onApply")==="linked") return accumilator //ignore if setting is set to only linked tokens
-	        let tokenObject = accumilator.find(o => o.token?.id === token.id)
-            if (tokenObject) {
-                tokenObject.effects.push(effect)
-            } else {
-                accumilator.push({token, effects: [effect]})
-            }
-        } else {
-            let actorObject = accumilator.find(o => o.actor?.id === actor?.id)
-            if (actorObject) {
-                actorObject.effects.push(effect)
-            } else {
-                accumilator.push({actor, effects: [effect]})
-            }
-        }
-	    return accumilator;
-    }
-
-	reducedEffectArray.forEach(o => {
-	    let token = o.token ?? o.actor?.getActiveTokens().filter(t => t.document.data.actorLink)[0].document //grab the token from the object, or any linked token from the actor if there isn't one
-        if(!token) return; //if this happens, something has gone weird.
-		let effects = o.effects.filter(e => e.isTemporary); //filter the array down to only temporary effects
-		if (effects.length === 0) return; //if there are no effects to print, don't print them
-		printActive({effects, token, hookType})
+			})
+		}
 	})
-}
+
+//output new effects to chat  - REMOVED for v2.
 
 
 Hooks.on("renderChatMessage",(app,html,data) => {
@@ -143,13 +69,15 @@ async function printActive({effects, token, hookType}) {
     log("Printing active effect with arguments", effects, token, hookType)
 	let subtitle;
 	switch (hookType){ //allows adding a subtitle depending on the hook used (set as a variable, not autodetected).  Current could be an if statement, but, yknow, progress and such
-        case "createActiveEffect":
-			subtitle = game.i18n.format("AE_TO_CHAT.ChatCard.AddEffect", {tokenName: token.name})
+		case "startTurn": 
+			subtitle = game.i18n.format("AE_TO_CHAT.ChatCard.startTurn", {tokenName: token.name})
+			break;
+		case "endTurn": 
+			subtitle = game.i18n.format("AE_TO_CHAT.ChatCard.endTurn", {tokenName: token.name})
 			break;
 		default:
 			break;
 	}
-	if(effects[0].data) effects = effects.map(e=>e.data ?? e) //if we have the whole effect rather than the data object, chunk down to the data object
 
     const speaker = {
 	    token: token.id,
@@ -173,7 +101,7 @@ async function printActive({effects, token, hookType}) {
 	const type = CONST.CHAT_MESSAGE_TYPES.OTHER;
 	
 	//make the chat message
-	const gmUsers = game.users.filter(user => user.isGM && user.active);
+	const gmUsers = game.users.filter(user => user.isGM);
 	let whisper = [];
 	
 	switch(game.settings.get(MODULE_ID,"effectMessageMode")){
@@ -185,7 +113,7 @@ async function printActive({effects, token, hookType}) {
 			break; //leaving the array of whisper recipients blank keeps the message public
 	}
 
-	if (token.data.hidden){
+	if (token.hidden){
 		switch(game.settings.get(MODULE_ID,"hiddenTokenOverride")){
 			case "gmwhisper":
 				whisper = gmUsers; //set the array to only GM users
@@ -218,7 +146,7 @@ async function _onRenderChatMessage(app, html, data) {
 	const sceneId = /*speaker.scene ??*/ html.find("div[class='ae-to-chat header']")[0]?.dataset?.sceneId; //commented out section is old behaviour using speaker to pass data.  Was incompatible with 
 	const tokenId = /*speaker.token ??*/ html.find("div[class='ae-to-chat header']")[0]?.dataset?.tokenId;
 	const scene = game.scenes.get(sceneId) ?? null;
-	const token = (canvas?.tokens?.get(sceneId)) ?? (scene?.data.tokens.find(t => t.id === tokenId));
+	const token = (canvas?.tokens?.get(tokenId)) ?? (scene?.tokens.find(t => t.id === tokenId));
 	log("onRenderChatMessage token/scene", token, scene)
 	const deleteEffectAnchor = html.find("a[name='delete-row']");
 	const disableEffectAnchor = html.find("a[name='disable-row']");
@@ -233,7 +161,7 @@ async function _onRenderChatMessage(app, html, data) {
 	deleteEffectAnchor?.on("click", event => {
 		async function anchorDelete(effect){
 			await effect.delete()
-            return game.i18n.format("AE_TO_CHAT.ChatCard.EffectDeleted", {label: effect.data.label})
+            return game.i18n.format("AE_TO_CHAT.ChatCard.EffectDeleted", {name: effect.name})
 		}
 		_anchorHandler(event, anchorDelete);
 	});
@@ -241,7 +169,7 @@ async function _onRenderChatMessage(app, html, data) {
 	disableEffectAnchor?.on("click", event => {
 		async function anchorDisable(effect) {
 			await effect.update({disabled: true})
-            return game.i18n.format("AE_TO_CHAT.ChatCard.EffectDisabled", {label: effect.data.label})
+            return game.i18n.format("AE_TO_CHAT.ChatCard.EffectDisabled", {name: effect.name})
 		}
 		_anchorHandler(event, anchorDisable);
 	});
